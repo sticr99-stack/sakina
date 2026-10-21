@@ -117,10 +117,24 @@
 
       <section class="view" id="view-quran" aria-labelledby="quranTitle">
         <div class="page-intro"><p class="eyebrow">مصحفك ورفيق ختمتك</p><h1 id="quranTitle">القرآن الكريم</h1><p class="muted">تابع وردك بهدوء، خطوة كل يوم.</p></div>
-        <article class="quran-hero"><span class="quran-motif" aria-hidden="true">﷽</span><div class="quran-label">موضع القراءة</div><h2>سورة البقرة</h2><p>الآية ٢١ <span>·</span> الجزء الأول</p><div class="quran-progress-line"><i></i></div><div class="quran-progress-meta"><span>تقدم الختمة</span><b>١٢٪</b></div><button class="primary-button quran-continue" id="quranContinue"><svg class="icon"><use href="#i-book" /></svg> متابعة القراءة</button></article>
-        <div class="section-heading slim-heading"><div><p class="eyebrow">للوصول السريع</p><h2>آخر ما قرأت</h2></div><button class="text-link" id="allSurahs">السور <svg class="icon"><use href="#i-chevron" /></svg></button></div>
-        <button class="surah-row"><span class="surah-number">٢</span><span><b>سورة البقرة</b><small>آخر موضع · الآية ٢١</small></span><span class="surah-open"><svg class="icon"><use href="#i-chevron" /></svg></span></button>
-        <div class="goal-card"><div class="goal-medal">✦</div><div><b>ورد اليوم: صفحتان</b><small>بقيت صفحة واحدة لإتمام هدفك</small></div><span class="goal-streak">٣ أيام متتالية</span></div>
+        <div id="quranHome">
+          <article class="quran-hero"><span class="quran-motif" aria-hidden="true">﷽</span><div class="quran-label">موضع القراءة</div><h2 id="quranLastSurah">سورة البقرة</h2><p id="quranLastPosition">الآية ١</p><div class="quran-progress-line"><i id="quranProgressBar"></i></div><div class="quran-progress-meta"><span>تقدم الختمة</span><b id="quranProgressText">٠٪</b></div><button class="primary-button quran-continue" id="quranContinue"><svg class="icon"><use href="#i-book" /></svg> متابعة القراءة</button></article>
+          <div class="section-heading slim-heading"><div><p class="eyebrow">للوصول السريع</p><h2>آخر ما قرأت</h2></div><button class="text-link" id="allSurahs">كل السور <svg class="icon"><use href="#i-chevron" /></svg></button></div>
+          <button class="surah-row" id="lastSurahRow"><span class="surah-number" id="lastSurahNumber">٢</span><span><b id="lastSurahName">سورة البقرة</b><small id="lastSurahAyah">آخر موضع · الآية ١</small></span><span class="surah-open"><svg class="icon"><use href="#i-chevron" /></svg></span></button>
+          <div class="goal-card"><div class="goal-medal">✦</div><div><b>ورد اليوم: صفحتان</b><small>ابدأ القراءة لإتمام هدفك اليومي</small></div></div>
+        </div>
+        <section class="quran-reader" id="quranReader" hidden aria-label="قارئ القرآن">
+          <div class="reader-toolbar"><button class="secondary-button" id="readerBack">رجوع</button><span class="reader-source">النص العربي · رواية حفص</span></div>
+          <header class="reader-heading"><span id="readerSurahMeta">السورة</span><h2 id="readerSurahName">جارٍ تحميل المصحف…</h2><p id="readerStatus" role="status" aria-live="polite">يتم تحميل النص القرآني.</p></header>
+          <div class="quran-verses" id="quranVerses" dir="rtl" lang="ar"></div>
+          <div class="reader-pagination"><button class="secondary-button" id="readerPrev">السورة السابقة</button><button class="secondary-button" id="readerNext">السورة التالية</button></div>
+          <p class="reader-attribution">النص القرآني من <a href="https://alquran.cloud/" target="_blank" rel="noreferrer">Al Quran Cloud</a>. يلزم اتصال بالإنترنت لتحميل السور لأول مرة.</p>
+        </section>
+        <section class="surah-picker" id="surahPicker" hidden aria-label="اختيار سورة">
+          <div class="picker-toolbar"><button class="secondary-button" id="pickerBack">رجوع</button><h2>اختر سورة</h2></div>
+          <label class="surah-search-label" for="surahSearch">ابحث عن سورة</label><input class="surah-search" id="surahSearch" type="search" placeholder="اسم السورة أو رقمها" autocomplete="off" />
+          <div class="surah-list" id="surahList"></div>
+        </section>
       </section>
 
       <section class="view" id="view-qibla" aria-labelledby="qiblaTitle">

@@ -17,6 +17,12 @@ const CITY_OFFSETS = {
 const METHOD_NAMES = { 21: "المغرب", 3: "رابطة العالم الإسلامي", 4: "أم القرى", 5: "الهيئة المصرية", 2: "ISNA" };
 const DEFAULT_CITY = { name: "مراكش", country: "المغرب", lat: 31.6295, lon: -7.9811, timeZone: "Africa/Casablanca" };
 const savedSettings = safeLoad("sakina-settings-v1", {});
+const QURAN_API = "https://api.alquran.cloud/v1";
+const QURAN_SURAHS = [
+  "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس", "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس",
+];
+const QURAN_AYAH_COUNTS = [7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6];
+const savedQuranProgress = safeLoad("sakina-quran-progress-v1", { surah: 2, ayah: 1 });
 
 const DHIKR_SETS = {
   morning: {
@@ -108,6 +114,10 @@ const state = {
   tasbih: safeLoad("sakina-tasbih-v1", { phrase: "سُبْحَانَ اللَّهِ", count: 0, target: 33 }),
   savedDuas: safeLoad("sakina-saved-duas-v1", []),
   duaFilter: "all",
+  quranSurah: Math.min(114, Math.max(1, Number(savedQuranProgress.surah) || 2)),
+  quranAyah: Math.max(1, Number(savedQuranProgress.ayah) || 1),
+  quranData: null,
+  quranRequestId: 0,
 };
 
 const el = (id) => document.getElementById(id);
@@ -411,6 +421,164 @@ function showPage(page) {
   }
 }
 
+function quranDigits(value) {
+  return digits.format(value);
+}
+
+function quranSurahName(number) {
+  return QURAN_SURAHS[number - 1] || `السورة ${quranDigits(number)}`;
+}
+
+function quranCacheKey(number) {
+  return `sakina-quran-surah-v1-${number}`;
+}
+
+function saveQuranProgress() {
+  safeSave("sakina-quran-progress-v1", { surah: state.quranSurah, ayah: state.quranAyah });
+  renderQuranHome();
+}
+
+function renderQuranHome() {
+  const name = quranSurahName(state.quranSurah);
+  const position = `الآية ${quranDigits(state.quranAyah)} · سورة ${name}`;
+  el("quranLastSurah").textContent = `سورة ${name}`;
+  el("quranLastPosition").textContent = position;
+  el("lastSurahNumber").textContent = quranDigits(state.quranSurah);
+  el("lastSurahName").textContent = `سورة ${name}`;
+  el("lastSurahAyah").textContent = `آخر موضع · الآية ${quranDigits(state.quranAyah)}`;
+  const completedAyahs = QURAN_AYAH_COUNTS.slice(0, state.quranSurah - 1).reduce((sum, count) => sum + count, 0)
+    + Math.min(state.quranAyah, QURAN_AYAH_COUNTS[state.quranSurah - 1] || 1);
+  const progress = Math.min(100, Math.round((completedAyahs / 6236) * 100));
+  el("quranProgressBar").style.width = `${progress}%`;
+  el("quranProgressText").textContent = `${quranDigits(progress)}٪`;
+}
+
+function showQuranMode(mode) {
+  el("quranHome").hidden = mode !== "home";
+  el("quranReader").hidden = mode !== "reader";
+  el("surahPicker").hidden = mode !== "picker";
+}
+
+function renderQuranSurah(data, preferredAyah = state.quranAyah) {
+  const verses = el("quranVerses");
+  verses.replaceChildren();
+  const fragment = document.createDocumentFragment();
+  data.ayahs.forEach((ayah) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "quran-ayah";
+    button.dataset.ayah = String(ayah.numberInSurah);
+    button.setAttribute("aria-label", `الآية ${quranDigits(ayah.numberInSurah)}`);
+    button.textContent = `${ayah.text} `;
+    const marker = document.createElement("span");
+    marker.className = "ayah-marker";
+    marker.setAttribute("aria-hidden", "true");
+    marker.textContent = quranDigits(ayah.numberInSurah);
+    button.append(marker);
+    fragment.append(button, document.createTextNode(" "));
+  });
+  verses.append(fragment);
+  el("readerSurahName").textContent = data.name || `سورة ${quranSurahName(data.number)}`;
+  el("readerSurahMeta").textContent = `${quranDigits(data.number)} · ${quranDigits(data.numberOfAyahs)} آية`;
+  el("readerPrev").disabled = data.number <= 1;
+  el("readerNext").disabled = data.number >= 114;
+  el("readerStatus").textContent = "اضغط على رقم الآية لحفظ موضع قراءتك.";
+  const target = verses.querySelector(`[data-ayah="${Number(preferredAyah)}"]`);
+  if (target && preferredAyah > 1) target.scrollIntoView({ block: "center" });
+}
+
+async function openQuranSurah(number, ayah = 1) {
+  const id = Math.min(114, Math.max(1, Number(number) || 1));
+  state.quranSurah = id;
+  state.quranAyah = Math.max(1, Number(ayah) || 1);
+  state.quranData = null;
+  const requestId = ++state.quranRequestId;
+  showPage("quran");
+  showQuranMode("reader");
+  el("readerSurahName").textContent = `سورة ${quranSurahName(id)}`;
+  el("readerSurahMeta").textContent = `السورة ${quranDigits(id)}`;
+  el("readerStatus").textContent = "يتم تحميل السورة…";
+  el("quranVerses").replaceChildren();
+  el("readerPrev").disabled = id <= 1;
+  el("readerNext").disabled = id >= 114;
+  saveQuranProgress();
+
+  const cached = safeLoad(quranCacheKey(id), null);
+  if (cached && Array.isArray(cached.ayahs) && cached.ayahs.length) {
+    state.quranData = cached;
+    const last = cached.ayahs.at(-1)?.numberInSurah || 1;
+    state.quranAyah = Math.min(state.quranAyah, last);
+    renderQuranSurah(cached, state.quranAyah);
+    el("readerStatus").textContent = "نسخة محفوظة على هذا الجهاز · جارٍ التحقق من التحديث.";
+  }
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 18000);
+  try {
+    const response = await fetch(`${QURAN_API}/surah/${id}/quran-uthmani`, { signal: controller.signal, cache: "no-store" });
+    if (!response.ok) throw new Error("quran-request-failed");
+    const result = await response.json();
+    const data = result?.data;
+    if (result.code !== 200 || !data || !Array.isArray(data.ayahs) || !data.ayahs.length) throw new Error("quran-data-invalid");
+    if (requestId !== state.quranRequestId) return;
+    state.quranData = data;
+    state.quranAyah = Math.min(state.quranAyah, data.ayahs.length);
+    safeSave(quranCacheKey(id), data);
+    renderQuranSurah(data, state.quranAyah);
+    saveQuranProgress();
+  } catch {
+    if (requestId !== state.quranRequestId) return;
+    if (state.quranData) {
+      el("readerStatus").textContent = "أنت غير متصل؛ تعرض نسخة السورة المحفوظة على هذا الجهاز.";
+    } else {
+      el("readerStatus").textContent = "تعذر تحميل السورة. تحقق من الاتصال بالإنترنت ثم حاول مجددًا.";
+      const retry = document.createElement("button");
+      retry.type = "button";
+      retry.className = "secondary-button";
+      retry.textContent = "إعادة المحاولة";
+      retry.addEventListener("click", () => openQuranSurah(id, state.quranAyah), { once: true });
+      el("quranVerses").replaceChildren(retry);
+    }
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function renderSurahPicker(query = "") {
+  const list = el("surahList");
+  const normalized = query.trim().replace(/[\u064B-\u065F\u0670]/g, "").toLocaleLowerCase("ar");
+  const matches = QURAN_SURAHS.map((name, index) => ({ name, number: index + 1 }))
+    .filter((surah) => !normalized || surah.name.replace(/[\u064B-\u065F\u0670]/g, "").toLocaleLowerCase("ar").includes(normalized) || String(surah.number) === normalized || quranDigits(surah.number) === normalized);
+  list.replaceChildren();
+  if (!matches.length) {
+    const empty = document.createElement("p");
+    empty.className = "quran-empty";
+    empty.textContent = "لا توجد سورة بهذا الاسم.";
+    list.append(empty);
+    return;
+  }
+  const fragment = document.createDocumentFragment();
+  matches.forEach((surah) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "surah-option";
+    button.setAttribute("aria-current", String(surah.number === state.quranSurah));
+    const number = document.createElement("span");
+    number.className = "surah-number";
+    number.textContent = quranDigits(surah.number);
+    const label = document.createElement("span");
+    const name = document.createElement("b");
+    name.textContent = `سورة ${surah.name}`;
+    const hint = document.createElement("small");
+    hint.textContent = surah.number === state.quranSurah ? `آخر قراءة · الآية ${quranDigits(state.quranAyah)}` : "اضغط لفتح السورة";
+    label.append(name, hint);
+    button.append(number, label);
+    button.addEventListener("click", () => openQuranSurah(surah.number, 1));
+    fragment.append(button);
+  });
+  list.append(fragment);
+}
+
 function openCityDialog() {
   document.querySelectorAll(".city-options button").forEach((button) => {
     button.classList.toggle("selected", button.dataset.city === state.city.name);
@@ -672,9 +840,32 @@ el("reminderToggle").addEventListener("click", async () => {
   schedulePrayerReminder();
   showToast(state.reminders ? "فُعّل التذكير أثناء فتح التطبيق." : "أُوقف تذكير الصلاة.");
 });
-el("quranContinue").addEventListener("click", () => showToast("قارئ القرآن في هذا النموذج توضيحي؛ اربطه بمصدر نص موثوق."));
-el("allSurahs").addEventListener("click", () => showToast("قائمة السور تحتاج إلى ربط مصدر القرآن."));
-document.querySelectorAll(".surah-row").forEach((button) => button.addEventListener("click", () => showToast("موضع القراءة التجريبي: سورة البقرة، الآية ٢١.")));
+el("quranContinue").addEventListener("click", () => openQuranSurah(state.quranSurah, state.quranAyah));
+el("lastSurahRow").addEventListener("click", () => openQuranSurah(state.quranSurah, state.quranAyah));
+el("allSurahs").addEventListener("click", () => {
+  showQuranMode("picker");
+  el("surahSearch").value = "";
+  renderSurahPicker();
+  el("surahSearch").focus();
+});
+el("readerBack").addEventListener("click", () => showQuranMode("home"));
+el("pickerBack").addEventListener("click", () => showQuranMode("home"));
+el("surahSearch").addEventListener("input", () => renderSurahPicker(el("surahSearch").value));
+el("readerPrev").addEventListener("click", () => {
+  if (state.quranSurah > 1) openQuranSurah(state.quranSurah - 1, 1);
+});
+el("readerNext").addEventListener("click", () => {
+  if (state.quranSurah < 114) openQuranSurah(state.quranSurah + 1, 1);
+});
+el("quranVerses").addEventListener("click", (event) => {
+  const verse = event.target.closest("[data-ayah]");
+  if (!verse || !state.quranData) return;
+  state.quranAyah = Number(verse.dataset.ayah);
+  saveQuranProgress();
+  el("readerStatus").textContent = `حُفظ موضعك: سورة ${quranSurahName(state.quranSurah)}، الآية ${quranDigits(state.quranAyah)}.`;
+  document.querySelectorAll(".quran-ayah[aria-pressed]").forEach((button) => button.removeAttribute("aria-pressed"));
+  verse.setAttribute("aria-pressed", "true");
+});
 
 el("calibrateButton").addEventListener("click", async () => {
   const hint = el("compassHint");
@@ -705,6 +896,7 @@ el("calibrateButton").addEventListener("click", async () => {
 });
 
 setDateLabels();
+renderQuranHome();
 renderPrayerTimes();
 updateBearing();
 loadPrayerTimes();
