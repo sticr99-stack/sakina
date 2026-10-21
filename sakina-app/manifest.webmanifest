@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "سَكينة — رفيق يومك",
+  "short_name": "سَكينة",
+  "description": "مواقيت الصلاة والأذكار والقبلة ومتابعة العبادات اليومية.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fffefa",
+  "theme_color": "#123e35",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

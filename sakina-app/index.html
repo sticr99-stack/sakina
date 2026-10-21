@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#123e35" />
+    <meta name="description" content="سكينة — رفيقك اليومي للصلاة والذكر والقرآن." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>سكينة — رفيق يومك</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1Z"/></symbol>
+      <symbol id="i-beads" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="4" r="1"/><path d="M12 4v-2"/><circle cx="12" cy="12" r="2.3"/></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21Zm0 0v13A2.5 2.5 0 0 1 6.5 16H20M8 7h8M8 10h8"/></symbol>
+      <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.5 5.1-5.1 2.5 2.5-5.1Z"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.7 15.2A8.7 8.7 0 0 1 8.8 3.3a9 9 0 1 0 11.9 11.9Z"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+      <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9A7 7 0 0 1 17 6.5L20 12M4 12l3 5.5A7 7 0 0 0 18.4 15"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 12 7-12 7Z"/></symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1a1.7 1.7 0 1 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.3a1.7 1.7 0 1 1-3.4 0v-.2A1.7 1.7 0 0 0 8 17.1l-.1.1a1.7 1.7 0 1 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9h-.3a1.7 1.7 0 1 1 0-3.4h.2A1.7 1.7 0 0 0 5.5 6.3l-.1-.1a1.7 1.7 0 1 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2v-.3a1.7 1.7 0 1 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 1 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.3a1.7 1.7 0 1 1 0 3.4h-.2a1.7 1.7 0 0 0-1.3 2.5Z"/></symbol>
+      <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9.5 4.2 4.2 0 0 0 7 18Z"/><path d="m9 14 2 2 4-4"/></symbol>
+    </svg>
+
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#home" aria-label="سكينة — الرئيسية" data-go="home">
+          <span class="brand-mark"><span></span></span>
+          <span class="brand-name">سَكينة<small>رفيق يومك</small></span>
+        </a>
+        <button class="city-button" id="cityButton" aria-label="اختيار المدينة">
+          <svg class="icon"><use href="#i-pin" /></svg>
+          <span><b id="cityName">مراكش</b><small>المغرب</small></span>
+          <span class="city-caret">⌄</span>
+        </button>
+        <button class="icon-button notification-button" id="settingsButton" aria-label="إعدادات التطبيق">
+          <svg class="icon"><use href="#i-settings" /></svg>
+        </button>
+      </header>
+
+      <button class="demo-banner status-demo" id="timesStatus" aria-live="polite"><span class="demo-dot"></span><span>جارٍ تحميل المواقيت…</span><span class="status-action">تحديث</span></button>
+
+      <section class="view active" id="view-home" aria-labelledby="greetingTitle">
+        <div class="greeting-row">
+          <div><p class="eyebrow" id="todayLabel">اليوم</p><h1 id="greetingTitle">السلام عليكم</h1><p class="muted">اجعل يومك يبدأ بذكر الله.</p></div>
+          <div class="date-seal"><span id="hijriDay">١٠</span><small id="hijriMonth">جمادى الأولى</small><i>١٤٤٨ هـ</i></div>
+        </div>
+
+        <article class="next-prayer-card" aria-live="polite">
+          <div class="card-orbit orbit-one"></div><div class="card-orbit orbit-two"></div>
+          <div class="next-card-top"><span class="next-label"><span class="live-pulse"></span> الصلاة القادمة</span><span id="periodLabel">باقي على الصلاة</span></div>
+          <div class="next-prayer-main"><div><h2 id="nextPrayerName">المغرب</h2><p id="nextPrayerTime">٦:٤٧ مساءً</p></div><div class="countdown" id="countdown">00:00:00</div></div>
+          <div class="prayer-track" id="prayerTrack" aria-label="مواقيت اليوم"></div>
+          <div class="next-card-foot"><span><svg class="icon"><use href="#i-moon" /></svg> اليوم <b id="dayPrayerCount">٢ / ٥</b> صلوات</span><button class="text-link" data-go="prayers">جدول اليوم <svg class="icon"><use href="#i-chevron" /></svg></button></div>
+        </article>
+
+        <section class="section-block">
+          <div class="section-heading"><div><p class="eyebrow">اختر ما تحتاجه</p><h2>مساحتك اليومية</h2></div><span class="section-note">٤ أدوات</span></div>
+          <div class="tool-grid">
+            <button class="tool-card tool-adhkar" data-go="adhkar"><span class="tool-icon"><svg class="icon"><use href="#i-beads" /></svg></span><span><b>الأذكار</b><small>وردك اليومي</small></span><svg class="icon tool-arrow"><use href="#i-chevron" /></svg></button>
+            <button class="tool-card tool-quran" data-go="quran"><span class="tool-icon"><svg class="icon"><use href="#i-book" /></svg></span><span><b>القرآن الكريم</b><small>أكمل من حيث وصلت</small></span><svg class="icon tool-arrow"><use href="#i-chevron" /></svg></button>
+            <button class="tool-card tool-qibla" data-go="qibla"><span class="tool-icon"><svg class="icon"><use href="#i-compass" /></svg></span><span><b>اتجاه القبلة</b><small>اعرف اتجاهك</small></span><svg class="icon tool-arrow"><use href="#i-chevron" /></svg></button>
+            <button class="tool-card tool-calendar" data-go="calendar"><span class="tool-icon"><svg class="icon"><use href="#i-calendar" /></svg></span><span><b>التقويم الهجري</b><small>مناسبات وأيام</small></span><svg class="icon tool-arrow"><use href="#i-chevron" /></svg></button>
+            <button class="tool-card tool-tasbih" data-go="tasbih"><span class="tool-icon"><svg class="icon"><use href="#i-beads" /></svg></span><span><b>السبحة الرقمية</b><small>تسبيحك في أي وقت</small></span><svg class="icon tool-arrow"><use href="#i-chevron" /></svg></button>
+            <button class="tool-card tool-goals" data-go="goals"><span class="tool-icon"><svg class="icon"><use href="#i-check" /></svg></span><span><b>إنجازات اليوم</b><small>تابع عاداتك</small></span><svg class="icon tool-arrow"><use href="#i-chevron" /></svg></button>
+          </div>
+        </section>
+
+        <section class="dhikr-card">
+          <div class="dhikr-top"><span class="mini-symbol">ذِكْر</span><span class="dhikr-time">وِرد الصباح</span><button class="quiet-button" id="resetDhikr" aria-label="إعادة العداد">إعادة</button></div>
+          <p class="dhikr-text">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</p>
+          <div class="dhikr-bottom"><span class="dhikr-progress"><i id="dhikrBar"></i></span><span class="dhikr-count"><b id="dhikrCount">٠</b> / ٣٣</span><button class="count-button" id="dhikrIncrement" aria-label="زيادة عداد الذكر">+</button></div>
+        </section>
+
+        <section class="reading-card">
+          <div class="reading-copy"><span class="reading-tag">مواصلة الورد</span><h2>وردك من القرآن</h2><p>سورة البقرة · الآية ٢١</p><div class="reading-progress"><i></i></div><small>١٢٪ من ختمتك الأولى</small></div>
+          <button class="continue-button" data-go="quran" aria-label="متابعة القراءة"><svg class="icon"><use href="#i-play" /></svg></button>
+          <span class="reading-ornament" aria-hidden="true">۞</span>
+        </section>
+        <button class="dua-shortcut" data-go="duas"><span class="dua-shortcut-mark">دُعاء</span><span><b>أدعية من القرآن والسنة</b><small>اقرأ واحفظ ما تحب</small></span><svg class="icon"><use href="#i-chevron" /></svg></button>
+      </section>
+
+      <section class="view" id="view-prayers" aria-labelledby="prayersTitle">
+        <div class="page-intro"><p class="eyebrow">مواقيت اليوم</p><h1 id="prayersTitle">الصلاة على وقتها</h1><p class="muted">أوقات تقريبية للعرض في النموذج.</p></div>
+        <div class="prayer-summary"><span class="summary-icon"><svg class="icon"><use href="#i-sun" /></svg></span><div><b id="prayerDate">اليوم في مراكش</b><small id="prayerMethodLabel">طريقة المغرب · توقيت محلي</small></div><button class="icon-button small" id="changeCity" aria-label="تغيير المدينة"><svg class="icon"><use href="#i-pin" /></svg></button></div>
+        <div class="full-prayer-list" id="fullPrayerList"></div>
+        <div class="info-box"><span class="info-mark">i</span><p id="timesInfo">قد تختلف المواقيت المحسوبة عن جدول المسجد المحلي. اختر طريقة الحساب المطابقة لبلدك.</p></div>
+        <button class="setting-row" id="reminderToggle" aria-pressed="false"><span class="setting-icon"><svg class="icon"><use href="#i-bell" /></svg></span><span><b>تذكير الصلاة</b><small>قبل الصلاة بعشر دقائق أثناء فتح التطبيق</small></span><span class="toggle" aria-label="متوقف"><i></i></span></button>
+      </section>
+
+      <section class="view" id="view-adhkar" aria-labelledby="adhkarTitle">
+        <div class="page-intro"><p class="eyebrow">ذِكرٌ يطمئن القلب</p><h1 id="adhkarTitle">الأذكار اليومية</h1><p class="muted">خذ لحظة لنفسك، وابدأ بذكر الله.</p></div>
+        <div class="segmented" role="tablist" aria-label="فترات الأذكار"><button class="selected" data-dhikr-set="morning" role="tab">الصباح</button><button data-dhikr-set="evening" role="tab">المساء</button><button data-dhikr-set="sleep" role="tab">النوم</button></div>
+        <article class="adhkar-feature">
+          <div class="feature-kicker"><span id="dhikrCategory">ذِكر الصباح</span><span id="dhikrIndex">١ من ٥</span></div>
+          <p class="large-dhikr" id="largeDhikr">أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ</p>
+          <p class="dhikr-meaning" id="dhikrMeaning">أصبحنا على فطرة الإسلام، والحمد لله على نعمه.</p>
+          <div class="feature-divider"></div>
+          <div class="feature-actions"><button class="source-link" id="sourceButton">المصدر والفضل</button><span class="repeat-note">التكرار <b id="targetCount">١</b> مرة</span></div>
+        </article>
+        <div class="dhikr-session"><div><p class="eyebrow">إنجاز وردك</p><b id="sessionLabel">٠ من ٥ أذكار</b></div><div class="session-ring" id="sessionRing"><span id="sessionPercent">٠٪</span></div></div>
+        <div class="adhkar-controls"><button class="secondary-button" id="prevDhikr">السابق</button><button class="primary-button" id="completeDhikr"><svg class="icon"><use href="#i-check" /></svg> تمّ الذكر</button><button class="secondary-button" id="nextDhikr">التالي</button></div>
+      </section>
+
+      <section class="view" id="view-quran" aria-labelledby="quranTitle">
+        <div class="page-intro"><p class="eyebrow">مصحفك ورفيق ختمتك</p><h1 id="quranTitle">القرآن الكريم</h1><p class="muted">تابع وردك بهدوء، خطوة كل يوم.</p></div>
+        <article class="quran-hero"><span class="quran-motif" aria-hidden="true">﷽</span><div class="quran-label">موضع القراءة</div><h2>سورة البقرة</h2><p>الآية ٢١ <span>·</span> الجزء الأول</p><div class="quran-progress-line"><i></i></div><div class="quran-progress-meta"><span>تقدم الختمة</span><b>١٢٪</b></div><button class="primary-button quran-continue" id="quranContinue"><svg class="icon"><use href="#i-book" /></svg> متابعة القراءة</button></article>
+        <div class="section-heading slim-heading"><div><p class="eyebrow">للوصول السريع</p><h2>آخر ما قرأت</h2></div><button class="text-link" id="allSurahs">السور <svg class="icon"><use href="#i-chevron" /></svg></button></div>
+        <button class="surah-row"><span class="surah-number">٢</span><span><b>سورة البقرة</b><small>آخر موضع · الآية ٢١</small></span><span class="surah-open"><svg class="icon"><use href="#i-chevron" /></svg></span></button>
+        <div class="goal-card"><div class="goal-medal">✦</div><div><b>ورد اليوم: صفحتان</b><small>بقيت صفحة واحدة لإتمام هدفك</small></div><span class="goal-streak">٣ أيام متتالية</span></div>
+      </section>
+
+      <section class="view" id="view-qibla" aria-labelledby="qiblaTitle">
+        <div class="page-intro"><p class="eyebrow">وجهتك للصلاة</p><h1 id="qiblaTitle">اتجاه القبلة</h1><p class="muted">اتجاه تقريبي محسوب من المدينة المختارة.</p></div>
+        <article class="qibla-card"><div class="qibla-location"><span class="location-dot"></span><span id="qiblaCity">مراكش، المغرب</span><button id="qiblaChangeCity">تغيير</button></div><div class="compass" id="compass"><span class="compass-north">ش</span><span class="compass-east">ق</span><span class="compass-south">ج</span><span class="compass-west">غ</span><span class="compass-tick tick-top"></span><span class="compass-tick tick-right"></span><span class="compass-tick tick-bottom"></span><span class="compass-tick tick-left"></span><div class="qibla-needle" id="qiblaNeedle"><span class="needle-tip"></span><span class="needle-tail"></span></div><div class="compass-center"><span>الكعبة</span></div></div><div class="bearing-row"><div><small>اتجاه القبلة</small><b><span id="bearingValue">٩٦°</span> <small>شرقًا</small></b></div><span class="bearing-divider"></span><div><small>من الشمال</small><b id="bearingFromNorth">٩٦°</b></div></div><button class="primary-button calibrate-button" id="calibrateButton"><svg class="icon"><use href="#i-rotate" /></svg><span>معايرة البوصلة</span></button><p class="compass-hint" id="compassHint">حرّك الهاتف على شكل رقم ٨ لتحسين دقة البوصلة.</p></article>
+        <div class="info-box"><span class="info-mark">i</span><p>يعتمد اتجاه البوصلة على مستشعر الجهاز. الزاوية المعروضة محسوبة جغرافيًا وقد تتأثر بالمجالات المغناطيسية حولك.</p></div>
+      </section>
+
+      <section class="view" id="view-calendar" aria-labelledby="calendarTitle">
+        <div class="page-intro"><p class="eyebrow">أيامٌ مباركة</p><h1 id="calendarTitle">التقويم الهجري</h1><p class="muted">تابع أيامك ومناسباتك الإسلامية.</p></div>
+        <article class="calendar-hero"><span class="calendar-ornament">۞</span><small>التاريخ الهجري اليوم</small><b id="fullHijri">١٠ جمادى الأولى ١٤٤٨</b><span id="gregorianDate">الأربعاء، ٢١ أكتوبر ٢٠٢٦</span></article>
+        <div class="section-heading slim-heading"><div><p class="eyebrow">هذا الشهر</p><h2>أيام قادمة</h2></div><span class="month-chip">جمادى الأولى</span></div>
+        <div class="event-list"><article class="event-row"><span class="event-day">١٢</span><div><b>يوم عادي من الشهر</b><small>الجمعة · جمادى الأولى</small></div><span class="event-dot"></span></article><article class="event-row"><span class="event-day">١٣</span><div><b>الأيام البيض</b><small>السبت · جمادى الأولى</small></div><span class="event-dot gold"></span></article><article class="event-row"><span class="event-day">١٤</span><div><b>الأيام البيض</b><small>الأحد · جمادى الأولى</small></div><span class="event-dot gold"></span></article><article class="event-row"><span class="event-day">١٥</span><div><b>الأيام البيض</b><small>الإثنين · جمادى الأولى</small></div><span class="event-dot gold"></span></article></div>
+        <div class="info-box"><span class="info-mark">i</span><p>التاريخ الهجري والأحداث في هذا النموذج للعرض فقط، وقد يختلف التقويم حسب البلد والرؤية.</p></div>
+      </section>
+
+      <section class="view" id="view-tasbih" aria-labelledby="tasbihTitle">
+        <div class="page-intro"><p class="eyebrow">سبحة رقمية</p><h1 id="tasbihTitle">لحظات من الذكر</h1><p class="muted">اختر الذكر، ثم المس الدائرة للعدّ.</p></div>
+        <div class="tasbih-picker" role="group" aria-label="اختيار الذكر"><button class="selected" data-tasbih="سُبْحَانَ اللَّهِ">سبحان الله</button><button data-tasbih="الْحَمْدُ لِلَّهِ">الحمد لله</button><button data-tasbih="اللَّهُ أَكْبَرُ">الله أكبر</button></div>
+        <article class="tasbih-panel"><span class="tasbih-label">الذكر الحالي</span><h2 id="tasbihPhrase">سُبْحَانَ اللَّهِ</h2><button class="tasbih-counter" id="tasbihCounter" aria-label="زيادة عداد التسبيح"><span id="tasbihCount">٠</span><small>اضغط للعدّ</small></button><div class="tasbih-target"><span>الهدف</span><div class="target-control"><button id="targetMinus" aria-label="تقليل الهدف">−</button><b id="tasbihTarget">٣٣</b><button id="targetPlus" aria-label="زيادة الهدف">+</button></div><button class="quiet-button" id="tasbihReset">إعادة ضبط</button></div></article>
+        <div class="info-box"><span class="info-mark">i</span><p>يُحفظ العدد على هذا الجهاز فقط. الذكر والهدف هنا لا يرسلان بيانات إلى خادم.</p></div>
+      </section>
+
+      <section class="view" id="view-goals" aria-labelledby="goalsTitle">
+        <div class="page-intro"><p class="eyebrow">خطوات صغيرة كل يوم</p><h1 id="goalsTitle">إنجازات اليوم</h1><p class="muted">اختر ما أنجزته، وتابع تقدمك على جهازك.</p></div>
+        <article class="goals-overview"><div><span class="eyebrow">تقدمك اليوم</span><h2><span id="goalDoneCount">٠</span><small> من ٧ أعمال</small></h2><p id="goalEncouragement">ابدأ بخطوة واحدة اليوم.</p></div><div class="goal-progress-ring" id="goalProgressRing"><span id="goalPercent">٠٪</span></div></article>
+        <div class="goal-checklist" id="goalChecklist"></div>
+        <div class="weekly-card"><div class="section-heading"><div><p class="eyebrow">استمرارية الأسبوع</p><h2>كل يوم خطوة</h2></div><span class="section-note">هذا الأسبوع</span></div><div class="week-dots" id="weekDots"></div><p class="weekly-note" id="weeklyNote">تُحفظ إنجازاتك محليًا على هذا الجهاز.</p></div>
+        <button class="secondary-button clear-goals" id="clearGoals">مسح إنجازات اليوم</button>
+      </section>
+
+      <section class="view" id="view-duas" aria-labelledby="duasTitle">
+        <div class="page-intro"><p class="eyebrow">دعاء يقرّب القلب</p><h1 id="duasTitle">أدعية مختارة</h1><p class="muted">نصوص قصيرة مع مراجعها، ويمكنك حفظ المفضّل.</p></div>
+        <div class="segmented dua-tabs" role="tablist" aria-label="تصنيف الأدعية"><button class="selected" data-dua-filter="all" role="tab">الكل</button><button data-dua-filter="quran" role="tab">من القرآن</button><button data-dua-filter="saved" role="tab">المحفوظة</button></div>
+        <div class="dua-list" id="duaList"></div>
+        <div class="info-box"><span class="info-mark">i</span><p>راجع نصوص الأدعية وتخريجها من مصدر موثوق قبل نشرها أو إضافة أذكار جديدة.</p></div>
+      </section>
+
+      <nav class="bottom-nav" aria-label="التنقل الرئيسي">
+        <button class="nav-item active" data-nav="home"><svg class="icon"><use href="#i-home" /></svg><span>الرئيسية</span></button>
+        <button class="nav-item" data-nav="prayers"><svg class="icon"><use href="#i-sun" /></svg><span>الصلاة</span></button>
+        <button class="nav-item" data-nav="adhkar"><svg class="icon"><use href="#i-beads" /></svg><span>الأذكار</span></button>
+        <button class="nav-item" data-nav="quran"><svg class="icon"><use href="#i-book" /></svg><span>القرآن</span></button>
+        <button class="nav-item" data-nav="qibla"><svg class="icon"><use href="#i-compass" /></svg><span>القبلة</span></button>
+      </nav>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <dialog class="city-dialog" id="cityDialog" aria-labelledby="cityDialogTitle"><form method="dialog"><button class="dialog-close" aria-label="إغلاق">×</button></form><span class="dialog-icon"><svg class="icon"><use href="#i-settings" /></svg></span><p class="eyebrow">تفضيلات المواقيت</p><h2 id="cityDialogTitle">المدينة وطريقة الحساب</h2><p class="muted">اختر مدينة يدويًا؛ لا نطلب موقعك الجغرافي.</p><div class="city-options"><button data-city="مراكش" data-country="المغرب" data-lat="31.6295" data-lon="-7.9811" data-timezone="Africa/Casablanca" class="selected"><span>مراكش</span><small>المغرب</small><svg class="icon"><use href="#i-check" /></svg></button><button data-city="الدار البيضاء" data-country="المغرب" data-lat="33.5731" data-lon="-7.5898" data-timezone="Africa/Casablanca"><span>الدار البيضاء</span><small>المغرب</small><svg class="icon"><use href="#i-check" /></svg></button><button data-city="الرباط" data-country="المغرب" data-lat="34.0209" data-lon="-6.8416" data-timezone="Africa/Casablanca"><span>الرباط</span><small>المغرب</small><svg class="icon"><use href="#i-check" /></svg></button><button data-city="المدينة المنورة" data-country="السعودية" data-lat="24.4672" data-lon="39.6024" data-timezone="Asia/Riyadh"><span>المدينة المنورة</span><small>السعودية</small><svg class="icon"><use href="#i-check" /></svg></button></div><label class="method-select-label" for="calcMethod">طريقة حساب الصلاة</label><select class="method-select" id="calcMethod"><option value="21">المغرب · وزارة الأوقاف</option><option value="3">رابطة العالم الإسلامي</option><option value="4">أم القرى · مكة</option><option value="5">الهيئة المصرية العامة للمساحة</option><option value="2">ISNA · أمريكا الشمالية</option></select><p class="method-note">سيُرسل إحداثي المدينة المختارة إلى خدمة AlAdhan لحساب المواقيت. قد تختلف النتائج عن توقيت مسجدك المحلي.</p><button class="primary-button save-settings" id="saveSettings">حفظ وتحديث المواقيت</button><button class="secondary-button install-button" id="installButton" hidden>تثبيت التطبيق</button></dialog>
+    <script src="app.js"></script>
+  </body>
+</html>
